@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import useWeb3Modal from "../utils/useWeb3Modal";
-
 const WaveButton = styled.button`
   cursor: pointer;
   margin-top: 16px;
