@@ -15,6 +15,7 @@
     "@walletconnect/web3-provider": "^1.6.6",
     "ethers": "^5.5.2",
     "react": "^17.0.2",
+    "react-currency-input-field": "^3.6.0",
     "react-dom": "^17.0.2",
     "styled-components": "^5.3.3",
     "wagmi": "^0.0.17",

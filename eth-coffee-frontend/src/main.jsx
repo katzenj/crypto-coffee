@@ -15,8 +15,8 @@ import App from "./App";
 
 import { INFURA_ID, NETWORK, NETWORK_ID } from "./utils/constants";
 
-const infuraId = INFURA_ID;
 // Chains for connectors to support
+// TODO: change when ready.
 const chains = defaultChains.filter((c) => c.name == "Rinkeby");
 
 // Set up connectors
@@ -29,20 +29,22 @@ const connectors = ({ chainId }) => {
     new InjectedConnector({ chains }),
     new WalletConnectConnector({
       options: {
-        infuraId,
+        infuraId: INFURA_ID,
         qrcode: true,
       },
     }),
     new WalletLinkConnector({
       options: {
         appName: "Send a Coffee",
-        jsonRpcUrl: `${rpcUrl}/${infuraId}`,
+        jsonRpcUrl: `${rpcUrl}/${INFURA_ID}`,
       },
     }),
   ];
 };
 
-const provider = ({ chainId }) => new providers.InfuraProvider(4, INFURA_ID);
+// TODO: change to mainnet when ready.
+const provider = ({ chainId }) =>
+  new providers.InfuraProvider(parseInt(NETWORK_ID), INFURA_ID);
 
 ReactDOM.render(
   <React.StrictMode>

@@ -5,7 +5,9 @@ const AccountData = ({ data, disconnect }) => {
     <div>
       {data ? (
         <>
-          <img src={data.ens?.avatar} alt="ENS Avatar" />
+          {data.ens?.avatar ? (
+            <img src={data.ens?.avatar} alt="ENS Avatar" />
+          ) : null}
           <div>
             {data.ens?.name
               ? `${data.ens?.name} (${data.address})`

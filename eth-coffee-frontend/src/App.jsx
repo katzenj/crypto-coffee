@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useAccount, useConnect, useContract, useProvider } from "wagmi";
 import { ethers, providers } from "ethers";
+
 import AccountData from "./components/AccountData";
+import CoffeeStats from "./components/CoffeeStats";
 import MessageInput from "./components/MessageInput";
-import WalletButton from "./components/WalletButton";
+import SendCoffee from "./components/SendCoffee";
 import WalletConnect from "./components/WalletConnect";
 
 import {
@@ -23,43 +25,6 @@ const App = () => {
     fetchEns: true,
   });
   const provider = useProvider();
-  // const contract = useContract({
-  //   addressOrName: CONTRACT_ADDRESS,
-  //   contractInterface: abi.abi,
-  //   signerOrProvider: provider,
-  // });
-
-  const sendCoffee = async (amount, message) => {
-    try {
-      if (!provider) {
-        return;
-      }
-      const signer = await connectData.connector.getSigner();
-      const etcContract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
-
-      const txn2 = await etcContract.sendCoffee(
-        "0xFF48d93EE8790B3906C4FECb26A08846Ab0e1109",
-        "my message",
-        { gasLimit: 300000 }
-      );
-      console.log(txn2);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const getTotalCoffeesSent = async () => {
-    try {
-      if (!provider) {
-        return;
-      }
-      const signer = await connectData.connector.getSigner();
-      const etcContract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
-      const txn = await etcContract.getTotalCoffeesSent();
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   // const getMyWaves = async () => {
   //   try {
@@ -120,14 +85,14 @@ const App = () => {
       <div className="dataContainer">
         <div className="header">👋 Hey there</div>
         <AccountData data={accountData} disconnect={disconnect} />
+        <CoffeeStats provider={provider} />
         <WalletConnect
           accountData={accountData}
           connectData={connectData}
           connectError={connectError}
           connect={connect}
         />
-
-        <button onClick={() => sendCoffee(0, "woof")}>Send Coffee</button>
+        <SendCoffee accountData={accountData} connectData={connectData} />
       </div>
     </div>
   );

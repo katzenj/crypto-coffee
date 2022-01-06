@@ -5443,6 +5443,11 @@ range-parser@1.2.0:
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.0.tgz#f49be6b487894ddc40dcc94a322f611092e00d5e"
   integrity sha1-9JvmtIeJTdxA3MlKMi9hEJLgDV4=
 
+react-currency-input-field@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/react-currency-input-field/-/react-currency-input-field-3.6.0.tgz#1b19eb34c14cdf9c95ff8c5acd5abcc4441aed09"
+  integrity sha512-UBj/+TxS13kEv2+UuysVPboK0HgXlxVoVx5FESCDHyu7bT4ybNpJxUqHCIcWdsWU+TsfvNndgzNdiKFSiFIJcQ==
+
 react-dom@^16.8.6:
   version "16.14.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.14.0.tgz#7ad838ec29a777fb3c75c3a190f661cf92ab8b89"
