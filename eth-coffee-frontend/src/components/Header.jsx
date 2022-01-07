@@ -1,6 +1,5 @@
 import React from "react";
 
-import AccountData from "./AccountData";
 import Button from "./Button";
 
 import { getTrimmedAddress } from "../utils/address";

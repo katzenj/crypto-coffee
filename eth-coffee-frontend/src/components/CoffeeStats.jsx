@@ -2,14 +2,19 @@ import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { useContract, useEnsLookup } from "wagmi";
 
-import CoffeeCard from "./CoffeeCard";
+import Button from "./Button";
+import MessagesContainer from "./MessagesContainer";
 
 import { CONTRACT_ADDRESS } from "../utils/constants";
+import { getTrimmedAddress } from "../utils/address";
+
 import abi from "../utils/EthCoffee.json";
+
+import "./CoffeeStats.css";
 
 const ABI = abi.abi;
 
-const CoffeeStats = ({ provider }) => {
+const CoffeeStats = ({ ens, address, provider, resetReceiver }) => {
   const [coffeesSent, setCoffeesSent] = useState(0);
   const [messages, setMessages] = useState([]);
 
@@ -19,25 +24,13 @@ const CoffeeStats = ({ provider }) => {
     signerOrProvider: provider,
   });
 
-  const getTotalCoffeesSent = async () => {
-    try {
-      if (!provider) {
-        return;
-      }
-      const txn = await contract.getTotalCoffeesSent();
-      setCoffeesSent(txn.toNumber());
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const getMessages = async () => {
     try {
       if (!provider) {
         return;
       }
       const newMessages = await contract.getMessagesSent(
-        ethers.utils.getAddress("0xf10f32ac5f3BE335337D4008a5bfdd353Fcc39A3")
+        ethers.utils.getAddress(address)
       );
       const messagesMapped = newMessages.map((msg) => ({
         from: msg.from,
@@ -47,6 +40,7 @@ const CoffeeStats = ({ provider }) => {
       }));
 
       if (messages.length !== messagesMapped.length) {
+        setCoffeesSent(messagesMapped.length);
         setMessages(messagesMapped);
       }
     } catch (error) {
@@ -55,16 +49,32 @@ const CoffeeStats = ({ provider }) => {
   };
 
   useEffect(() => {
-    getTotalCoffeesSent();
     getMessages();
   }, []);
 
   return (
-    <div>
-      <p>{coffeesSent}</p>
-      {messages.map((m) => {
-        return <CoffeeCard key={m.from} data={m} />;
-      })}
+    <div className="coffee-stats-container">
+      <div className="receiver-account-container">
+        {address ? (
+          <>
+            {ens?.avatar ? (
+              <img src={data.ens?.avatar} alt="ENS Avatar" />
+            ) : null}
+            <div className="receiver-address-container">
+              <b>Receiver: </b>
+              {ens?.name ? ens?.name : getTrimmedAddress(address)}
+              <button className="cancel-button" onClick={resetReceiver}>
+                <i className="far fa-times-circle"></i>
+              </button>
+            </div>
+          </>
+        ) : null}
+      </div>
+      <p>
+        <b>Coffees sent to this address: </b>
+        {coffeesSent}
+      </p>
+      <MessagesContainer messages={messages} />
     </div>
   );
 };

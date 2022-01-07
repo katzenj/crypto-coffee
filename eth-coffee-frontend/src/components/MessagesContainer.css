@@ -1,0 +1,9 @@
+
+.chevron-button {
+  margin-left: 4px;
+  cursor: pointer;
+  background-color: unset;
+  border: unset;
+  color: white;
+  font-size: 18px;
+}

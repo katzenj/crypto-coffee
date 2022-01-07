@@ -8,11 +8,9 @@ import {
 } from "wagmi";
 import { ethers, providers } from "ethers";
 
-import AccountData from "./components/AccountData";
 import AddressContainer from "./components/AddressContainer";
 import CoffeeStats from "./components/CoffeeStats";
 import Header from "./components/Header";
-import TextInput from "./components/TextInput";
 import SendCoffee from "./components/SendCoffee";
 import WalletConnect from "./components/WalletConnect";
 
@@ -31,6 +29,10 @@ const App = () => {
   const [receiver, setReceiver] = useState();
   const [receiverInfo, setReceiverInfo] = useState({ name: "", address: "" });
 
+  const resetReceiver = () => {
+    setReceiverInfo({ name: "", address: "" });
+  };
+
   return (
     <div>
       <Header accountData={accountData} disconnect={disconnect} />
@@ -48,15 +50,12 @@ const App = () => {
           )}
           {receiverInfo.address && accountData ? (
             <>
-              <p className="subtitle">
-                Enter the eth address of the recipient below. Then, choose how
-                much MATIC you'd like to send!
-              </p>
-              <AccountData
-                ens={receiverInfo?.ens}
-                address={receiverInfo?.address}
+              <CoffeeStats
+                resetReceiver={resetReceiver}
+                ens={receiverInfo.ens}
+                address={receiverInfo.address}
+                provider={provider}
               />
-              <CoffeeStats provider={provider} />
               <SendCoffee accountData={accountData} connectData={connectData} />
             </>
           ) : null}
