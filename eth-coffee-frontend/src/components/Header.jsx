@@ -6,7 +6,7 @@ import { getTrimmedAddress } from "../utils/address";
 
 import "./Header.css";
 
-export default Header = ({ accountData, disconnect }) => {
+const Header = ({ accountData, disconnect }) => {
   const addr = accountData?.address;
   const ens = accountData?.ens;
 
@@ -30,3 +30,5 @@ export default Header = ({ accountData, disconnect }) => {
     </header>
   );
 };
+
+export default Header;

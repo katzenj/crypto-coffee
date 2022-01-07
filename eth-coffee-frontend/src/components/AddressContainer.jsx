@@ -5,7 +5,7 @@ import { useProvider } from "wagmi";
 import Button from "./Button";
 import TextInput from "./TextInput";
 
-export default AddressContainer = ({ setAddressInfo }) => {
+const AddressContainer = ({ setAddressInfo }) => {
   const [addr, setAddr] = useState("");
   const provider = useProvider();
 
@@ -38,3 +38,5 @@ export default AddressContainer = ({ setAddressInfo }) => {
     </div>
   );
 };
+
+export default AddressContainer;
