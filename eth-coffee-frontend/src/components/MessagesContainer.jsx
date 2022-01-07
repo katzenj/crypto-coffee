@@ -4,7 +4,7 @@ import CoffeeCard from "./CoffeeCard";
 
 import "./MessagesContainer.css";
 
-export default MessagesContainer = ({ messages }) => {
+const MessagesContainer = ({ messages }) => {
   const [expanded, setExpanded] = useState(false);
   const getChevron = () => {
     if (expanded) {
@@ -35,3 +35,5 @@ export default MessagesContainer = ({ messages }) => {
     </div>
   );
 };
+
+export default MessagesContainer;
