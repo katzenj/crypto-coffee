@@ -1,19 +1,18 @@
 import React from "react";
 
-const AccountData = ({ data }) => {
+import { getTrimmedAddress } from "../utils/address";
+
+import "./AccountData.css";
+
+const AccountData = ({ ens, address, className }) => {
   return (
-    <div>
-      {data ? (
+    <div className="account-container">
+      {address ? (
         <>
-          {data.ens?.avatar ? (
-            <img src={data.ens?.avatar} alt="ENS Avatar" />
-          ) : null}
-          <div>
-            {data.ens?.name
-              ? `${data.ens?.name} (${data.address})`
-              : data.address}
+          {ens?.avatar ? <img src={data.ens?.avatar} alt="ENS Avatar" /> : null}
+          <div className="address-container">
+            {ens?.name ? ens?.name : getTrimmedAddress(address)}
           </div>
-          <div>Connected to {data.connector.name}</div>
         </>
       ) : null}
     </div>

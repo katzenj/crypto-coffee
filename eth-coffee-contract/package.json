@@ -6,7 +6,8 @@
   "scripts": {
     "test:unit": "hardhat test",
     "test:run": "hardhat run scripts/run.js",
-    "deploy:rinkeby": "hardhat run scripts/deploy.js --network rinkeby"
+    "deploy:rinkeby": "hardhat run scripts/deploy.js --network rinkeby",
+    "deploy:mumbai": "hardhat run scripts/deploy.js --network polygon_mumbai"
   },
   "keywords": [],
   "author": "",

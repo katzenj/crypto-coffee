@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { useAccount, useConnect, useContract, useProvider } from "wagmi";
+import {
+  useAccount,
+  useConnect,
+  useContract,
+  useProvider,
+  useEnsLookup,
+} from "wagmi";
 import { ethers, providers } from "ethers";
 
 import AccountData from "./components/AccountData";
+import AddressContainer from "./components/AddressContainer";
 import CoffeeStats from "./components/CoffeeStats";
-import MessageInput from "./components/MessageInput";
+import Header from "./components/Header";
+import TextInput from "./components/TextInput";
 import SendCoffee from "./components/SendCoffee";
 import WalletConnect from "./components/WalletConnect";
 
-import {
-  CONTRACT_ADDRESS,
-  INFURA_ID,
-  NETWORK,
-  NETWORK_ID,
-} from "./utils/constants";
+import { CONTRACT_ADDRESS, CHAIN_ID } from "./utils/constants";
 
 import "./App.css";
 import abi from "./utils/EthCoffee.json";
@@ -25,54 +28,39 @@ const App = () => {
     fetchEns: true,
   });
   const provider = useProvider();
-
-  // useEffect(() => {
-  //   let isMounted = true;
-  //   if (isMounted) {
-  //     getMyWaves();
-  //   }
-
-  //   let etcContract;
-
-  //   const onNewWave = (from, timestamp, message) => {
-  //     setAllWaves((prevState) => [
-  //       ...prevState,
-  //       {
-  //         address: from,
-  //         timestamp: new Date(timestamp * 1000),
-  //         message: message,
-  //       },
-  //     ]);
-  //   };
-
-  //   if (prv) {
-  //     prv.pollingInterval = 600000; // 6 minutes
-  //     etcContract = new ethers.Contract(CONTRACT_ADDRESS, ABI, prv);
-  //     etcContract.on("NewWave", onNewWave);
-  //   }
-
-  //   return () => {
-  //     if (etcContract) {
-  //       etcContract.off("NewWave", onNewWave);
-  //     }
-  //     isMounted = false;
-  //   };
-  // }, [currentAccount]);
+  const [receiver, setReceiver] = useState();
+  const [receiverInfo, setReceiverInfo] = useState({ name: "", address: "" });
 
   return (
-    <div className="mainContainer">
-      <div className="dataContainer">
-        <div className="header">👋 Hey there</div>
-        <AccountData data={accountData} />
-        <WalletConnect
-          accountData={accountData}
-          connectData={connectData}
-          connectError={connectError}
-          connect={connect}
-          disconnect={disconnect}
-        />
-        <CoffeeStats provider={provider} />
-        <SendCoffee accountData={accountData} connectData={connectData} />
+    <div>
+      <Header accountData={accountData} disconnect={disconnect} />
+      <div className="main-container">
+        <div className="data-container">
+          <div className="title">Send a coffee</div>
+          <WalletConnect
+            accountData={accountData}
+            connectData={connectData}
+            connectError={connectError}
+            connect={connect}
+          />
+          {!receiverInfo.address && (
+            <AddressContainer setAddressInfo={setReceiverInfo} />
+          )}
+          {receiverInfo.address && accountData ? (
+            <>
+              <p className="subtitle">
+                Enter the eth address of the recipient below. Then, choose how
+                much MATIC you'd like to send!
+              </p>
+              <AccountData
+                ens={receiverInfo?.ens}
+                address={receiverInfo?.address}
+              />
+              <CoffeeStats provider={provider} />
+              <SendCoffee accountData={accountData} connectData={connectData} />
+            </>
+          ) : null}
+        </div>
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
-import { useContract } from "wagmi";
+import { useContract, useEnsLookup } from "wagmi";
 
-import "./CoffeeStats.css";
+import CoffeeCard from "./CoffeeCard";
 
 import { CONTRACT_ADDRESS } from "../utils/constants";
 import abi from "../utils/EthCoffee.json";
@@ -63,19 +63,7 @@ const CoffeeStats = ({ provider }) => {
     <div>
       <p>{coffeesSent}</p>
       {messages.map((m) => {
-        return (
-          <div key={m.timestamp} className="message-card">
-            <p className="message-text">
-              <b>From:</b> {m.from}
-            </p>
-            <p className="message-text">
-              <b>Message:</b> {m.message}
-            </p>
-            <p className="message-text">
-              <b>Date:</b> {m.date.toString()}
-            </p>
-          </div>
-        );
+        return <CoffeeCard key={m.from} data={m} />;
       })}
     </div>
   );

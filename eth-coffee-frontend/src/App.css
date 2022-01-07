@@ -1,24 +1,32 @@
-.mainContainer {
+.main-container {
   display: flex;
   justify-content: center;
   width: 100%;
-  margin-top: 64px;
+  margin-top: 24px;
 }
 
-.dataContainer {
+.data-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-width: 600px;
+  width: 480px;
 }
 
-.header {
+.title {
   text-align: center;
   font-size: 32px;
   font-weight: 600;
 }
 
-.bio {
+.subtitle {
+  margin-top: 0px;
   text-align: center;
-  margin-top: 16px;
+}
+
+
+@media only screen and (max-width: 550px) {
+  .data-container {
+    max-width: 480px;
+    width: calc(100% - 30px);
+  }
 }

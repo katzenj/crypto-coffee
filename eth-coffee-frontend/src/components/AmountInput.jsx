@@ -8,8 +8,10 @@ const AmountInput = ({ amount, setAmount }) => {
 
   const COFFEE_PRICE = 4.0;
   const LIMIT = 1;
+  // const BINANCE_API_URL =
+  //   "https://api.binance.com/api/v1/ticker/price?symbol=ETHUSDT";
   const BINANCE_API_URL =
-    "https://api.binance.com/api/v1/ticker/price?symbol=ETHUSDT";
+    "https://api.binance.com/api/v1/ticker/price?symbol=MATICUSDT";
 
   const getEthUsdPrice = async () => {
     const res = await fetch(BINANCE_API_URL);
@@ -26,7 +28,7 @@ const AmountInput = ({ amount, setAmount }) => {
       const converted = (amount * price).toFixed(2);
       return (
         <p>
-          {amount} ETH : ${converted}
+          {amount} MATIC : ${converted}
         </p>
       );
     }
@@ -50,7 +52,6 @@ const AmountInput = ({ amount, setAmount }) => {
       <CurrencyInput
         id="amount"
         name="input"
-        prefix="Ξ"
         placeholder="Please enter an amount"
         value={amount}
         defaultValue={null}
