@@ -2,7 +2,13 @@ import React from "react";
 
 import "./WalletConnect.css";
 
-const WalletConnect = ({ accountData, connectData, connectError, connect }) => {
+const WalletConnect = ({
+  accountData,
+  connectData,
+  connectError,
+  connect,
+  disconnect,
+}) => {
   return (
     <div className="connect-wallet-container">
       {!accountData &&
@@ -18,6 +24,9 @@ const WalletConnect = ({ accountData, connectData, connectError, connect }) => {
           </button>
         ))}
       {connectError && console.error(connectError?.message)}
+      <button className="connect-wallet-button" onClick={disconnect}>
+        Disconnect
+      </button>
     </div>
   );
 };

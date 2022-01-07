@@ -63,14 +63,15 @@ const App = () => {
     <div className="mainContainer">
       <div className="dataContainer">
         <div className="header">👋 Hey there</div>
-        <AccountData data={accountData} disconnect={disconnect} />
-        <CoffeeStats provider={provider} />
+        <AccountData data={accountData} />
         <WalletConnect
           accountData={accountData}
           connectData={connectData}
           connectError={connectError}
           connect={connect}
+          disconnect={disconnect}
         />
+        <CoffeeStats provider={provider} />
         <SendCoffee accountData={accountData} connectData={connectData} />
       </div>
     </div>

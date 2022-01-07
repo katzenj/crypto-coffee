@@ -1,6 +1,6 @@
 import React from "react";
 
-const AccountData = ({ data, disconnect }) => {
+const AccountData = ({ data }) => {
   return (
     <div>
       {data ? (
@@ -14,7 +14,6 @@ const AccountData = ({ data, disconnect }) => {
               : data.address}
           </div>
           <div>Connected to {data.connector.name}</div>
-          <button onClick={disconnect}>Disconnect</button>
         </>
       ) : null}
     </div>

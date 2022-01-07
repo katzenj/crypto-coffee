@@ -10,9 +10,9 @@
   font-size: 16px;
   font-weight: bold;
   color: #3d3e3e;
+  background-color: #ebebeb;
   height: 50px;
   transition: transform .5s; /* Animation */
-  background-color: #ebebeb;
 }
 
 .send-coffee-button:hover {
@@ -20,13 +20,13 @@
 }
 
 .loading {
-    border: 8px solid #2D384D;
-    border-top: 8px solid white;
-    border-radius: 50%;
-    height: 16px;
-    width: 16px;
-    animation: spin 2s linear infinite;
-    margin: auto;
+  border: 8px solid #2D384D;
+  border-top: 8px solid white;
+  border-radius: 50%;
+  height: 16px;
+  width: 16px;
+  animation: spin 2s linear infinite;
+  margin: auto;
 }
 
 @keyframes spin {
