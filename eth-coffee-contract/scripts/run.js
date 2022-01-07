@@ -51,6 +51,12 @@ const main = async () => {
   let messagesToRand2 = await etcContract.getMessagesSent(randomPerson2.address);
   console.log(messagesToRand2)
 
+  let messages = await etcContract.getAllMessages();
+  console.log(messages);
+
+  let amtBy = await etcContract.getAmountForAddress(randomPerson2.address);
+  console.log(amtBy)
+
 };
 
 const runMain = async () => {

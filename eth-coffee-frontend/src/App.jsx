@@ -26,27 +26,6 @@ const App = () => {
   });
   const provider = useProvider();
 
-  // const getMyWaves = async () => {
-  //   try {
-  //     if (!prv || !currentAccount || !correctNetwork) {
-  //       return;
-  //     }
-  //     const etcContract = new ethers.Contract(CONTRACT_ADDRESS, ABI, prv);
-  //     const waves = await etcContract.getWaves(currentAccount);
-  //     let wavesCleaned = waves.map((wave) => ({
-  //       address: wave.waver,
-  //       timestamp: new Date(wave.timestamp * 1000),
-  //       message: wave.message,
-  //     }));
-
-  //     if (allWaves.length !== wavesCleaned.length) {
-  //       setAllWaves(wavesCleaned);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
   // useEffect(() => {
   //   let isMounted = true;
   //   if (isMounted) {

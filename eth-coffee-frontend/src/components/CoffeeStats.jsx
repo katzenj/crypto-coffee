@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { ethers } from "ethers";
 import { useContract } from "wagmi";
+
+import "./CoffeeStats.css";
 
 import { CONTRACT_ADDRESS } from "../utils/constants";
 import abi from "../utils/EthCoffee.json";
@@ -33,15 +36,19 @@ const CoffeeStats = ({ provider }) => {
       if (!provider) {
         return;
       }
-      let txn = await contract.getMessagesSent(
-        "0xf10f32ac5f3BE335337D4008a5bfdd353Fcc39A3"
+      const newMessages = await contract.getMessagesSent(
+        ethers.utils.getAddress("0xf10f32ac5f3BE335337D4008a5bfdd353Fcc39A3")
       );
-      console.log(messages);
+      const messagesMapped = newMessages.map((msg) => ({
+        from: msg.from,
+        timestamp: msg.timestamp,
+        date: new Date(msg.timestamp * 1000),
+        message: msg.message,
+      }));
 
-      txn = await contract.getMessagesSent(
-        "0xff48d93ee8790b3906c4fecb26a08846ab0e1109"
-      );
-      console.log(messages);
+      if (messages.length !== messagesMapped.length) {
+        setMessages(messagesMapped);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -50,9 +57,28 @@ const CoffeeStats = ({ provider }) => {
   useEffect(() => {
     getTotalCoffeesSent();
     getMessages();
-  }, [provider]);
+  }, []);
 
-  return <div>{coffeesSent}</div>;
+  return (
+    <div>
+      <p>{coffeesSent}</p>
+      {messages.map((m) => {
+        return (
+          <div key={m.timestamp} className="message-card">
+            <p className="message-text">
+              <b>From:</b> {m.from}
+            </p>
+            <p className="message-text">
+              <b>Message:</b> {m.message}
+            </p>
+            <p className="message-text">
+              <b>Date:</b> {m.date.toString()}
+            </p>
+          </div>
+        );
+      })}
+    </div>
+  );
 };
 
 export default CoffeeStats;

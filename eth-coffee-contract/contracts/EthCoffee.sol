@@ -10,6 +10,7 @@ contract EthCoffee is ReentrancyGuard {
   using Counters for Counters.Counter;
 
   Counters.Counter private totalCoffees;
+  Message[] messages;
   mapping(address => Message[]) private messageForAddress;
   mapping(address => uint256) private amountByAddress;
   mapping(address => uint256) public lastMessagedAt;
@@ -76,12 +77,15 @@ contract EthCoffee is ReentrancyGuard {
   {
     lastMessagedAt[msg.sender] = block.timestamp;
 
-    totalCoffees.increment();
     Message memory curMessage = Message(_to, _message, block.timestamp);
-    messageForAddress[_to].push(curMessage);
 
     (bool success, ) = _to.call{value: msg.value}("");
     require(success, "Failed to transfer Ether");
+
+    totalCoffees.increment();
+    messageForAddress[_to].push(curMessage);
+    messages.push(curMessage);
+    amountByAddress[_to] += msg.value;
 
     emit CoffeeSent(_to, block.timestamp, _message);
   }
@@ -94,5 +98,13 @@ contract EthCoffee is ReentrancyGuard {
 
   function getMessagesSent(address addr) public view returns (Message[] memory) {
     return messageForAddress[addr];
+  }
+
+  function getAllMessages() public view returns (Message[] memory) {
+    return messages;
+  }
+
+  function getAmountForAddress(address addr) public view returns (uint256) {
+    return amountByAddress[addr];
   }
 }

@@ -22,19 +22,3 @@
   text-align: center;
   margin-top: 16px;
 }
-
-/* .waveButton {
-  cursor: pointer;
-  margin-top: 16px;
-  padding: 8px;
-  border: 0;
-  border-radius: 5px;
-} */
-
-.waveMessage {
-  background-color: oldlace;
-  border-radius: 5px;
-  color: black;
-  margin-top: 16px;
-  padding: 8px;
-}

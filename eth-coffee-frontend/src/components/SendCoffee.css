@@ -12,6 +12,7 @@
   color: #3d3e3e;
   height: 50px;
   transition: transform .5s; /* Animation */
+  background-color: #ebebeb;
 }
 
 .send-coffee-button:hover {

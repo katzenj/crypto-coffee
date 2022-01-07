@@ -52,4 +52,28 @@ describe("EthCoffee", function () {
     );
     await expect(sendCoffee).to.be.reverted;
   });
+
+  it("Should get messages", async function () {
+    const [owner, _random, _random2] = await ethers.getSigners();
+    const msg = "message";
+    const amt = ethers.utils.parseEther('0.01');
+
+    const txn = await etc.sendCoffee(
+      _random.address,
+      msg,
+      { value: amt },
+    );
+
+    const sendCoffee = await etc.connect(_random2).sendCoffee(
+      _random.address,
+      "message 2",
+      { value: amt },
+    );
+
+    const messages = await etc.getAllMessages();
+    expect(messages.length).to.equal(2);
+
+    const messagesForAddr = await etc.getMessagesSent(_random.address);
+    expect(messagesForAddr.length).to.equal(2);
+  });
 });

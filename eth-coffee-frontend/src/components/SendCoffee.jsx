@@ -31,9 +31,7 @@ const SendCoffee = ({ accountData, connectData }) => {
         message,
         { gasLimit: 300000, value: ethers.utils.parseEther(amount) }
       );
-      console.log("mining", txn);
       await txn.wait();
-      console.log("mined", txn);
       setLoading(false);
     } catch (e) {
       console.error(e);
