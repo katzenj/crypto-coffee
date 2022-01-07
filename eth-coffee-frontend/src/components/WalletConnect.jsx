@@ -4,17 +4,17 @@ import Button from "./Button";
 import "./WalletConnect.css";
 
 const WalletConnect = ({ accountData, connectData, connectError, connect }) => {
+  const validConnectors = connectData.connectors.filter((c) => c.ready);
   return (
     <div className="connect-wallet-container">
       {!accountData &&
-        connectData.connectors.map((connector) => (
+        validConnectors.map((connector) => (
           <Button
             disabled={!connector.ready}
             key={connector.id}
             onClick={() => connect(connector)}
           >
             {connector.name}
-            {!connector.ready && " (unsupported)"}
           </Button>
         ))}
       {connectError && console.error(connectError?.message)}
